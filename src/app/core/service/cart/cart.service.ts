@@ -68,8 +68,8 @@ export class CartService {
 
   checkOutSession(cartId:string|null , checkOutDetails:object):Observable<PaymentVisaResponse>{
     const returnUrl = isPlatformBrowser(this.platformId) 
-      ? `${window.location.origin}/allorders`
-      : 'http://localhost:4200/allorders';
+      ? window.location.origin
+      : 'http://localhost:4200';
     
     return this.httpClient.post<PaymentVisaResponse>(
       `${environment.base_url}orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`,
