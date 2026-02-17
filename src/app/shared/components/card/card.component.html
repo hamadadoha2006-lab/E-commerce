@@ -1,0 +1,64 @@
+<div
+  class="card group/card relative bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100"
+>
+  <!-- Wishlist Heart Icon -->
+  <button
+    (click)="toggleWishlist()"
+    class="absolute cursor-pointer top-2 right-2 z-10 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-all duration-200"
+    [class.text-red-500]="wishlistService.isInWishlist(item.id)"
+    [class.text-gray-400]="!wishlistService.isInWishlist(item.id)"
+  >
+    <i class="fas fa-heart text-sm"></i>
+  </button>
+  <!-- Product Image -->
+  <div class="relative overflow-hidden bg-gray-50">
+    <img
+      [src]="item.imageCover"
+      [alt]="item.title"
+      class="w-full h-52 object-cover group-hover/card:scale-105 transition-transform duration-700"
+      [title]="item.title"
+    />
+    <!-- Category Badge on Image -->
+    <div
+      class="absolute bottom-2 left-2 bg-green-600 text-white px-2 py-1 rounded-md text-xs font-semibold"
+    >
+      {{ item.category.name | titlecase }}
+    </div>
+  </div>
+
+  <!-- Product Info -->
+  <div class="p-3">
+    <h4
+      class="text-sm font-semibold text-gray-800 mb-2 h-10 line-clamp-2 group-hover/card:text-green-600 transition-colors duration-200"
+    >
+      {{ item.title | titlecase }}
+    </h4>
+
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-green-600">{{ item.price | currency: 'GBP' }}</span>
+      </div>
+      <div class="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-md">
+        <i class="fas fa-star text-yellow-400 text-xs"></i>
+        <span class="text-xs font-semibold text-gray-700">{{ item.ratingsAverage }}</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-2">
+      <button
+        class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md"
+        (click)="addToCart()"
+      >
+        <i class="fas fa-shopping-cart text-xs"></i>
+        <span>Add to cart</span>
+      </button>
+      <button
+        class="w-10 h-10 cursor-pointer border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white rounded-lg transition-all duration-500 flex items-center justify-center shadow-sm hover:shadow-md"
+        [routerLink]="['/details', item.slug, item.id]"
+      >
+        <i class="fas fa-eye text-sm"></i>
+      </button>
+    </div>
+  </div>
+</div>

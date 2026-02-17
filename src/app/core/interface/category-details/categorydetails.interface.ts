@@ -1,0 +1,2 @@
+export interface Categorydetails {
+}

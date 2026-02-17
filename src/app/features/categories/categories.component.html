@@ -1,0 +1,12 @@
+<section class="pt-20 pb-10 bg-gray-50 min-h-screen">
+  <div class="container xl:w-[95%] mx-auto px-4">
+    <h2 class="text-2xl font-bold text-gray-800 my-6">
+      <span class="text-green-600">Popular</span> Categories
+    </h2>
+    <div class="products grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        @for (item of categoryList(); track item._id) {
+            <app-category-card [info]="item"></app-category-card>
+        }
+    </div>
+  </div>
+</section>

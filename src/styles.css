@@ -1,3 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+@layer components{
+    .btn-main {
+    @apply bg-green-600 py-1.75 px-5 border border-gray-300 rounded-[10px] text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:bg-gray-300 hover:bg-green-700 transition-[background-color] duration-500;
+            }
+    .card {
+    @apply border border-gray-200 shadow rounded p-2 overflow-hidden;
+        }
+
+        .btn-main {
+    @apply bg-green-600 py-1.75 px-5 border border-gray-300 rounded-[5px] text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300 disabled:hover:bg-gray-300 hover:bg-green-700 transition-[background-color] duration-500;
+}
+}
+
+body{
+        font-family: "Oswald", sans-serif;
+}
+.container{
+        margin: 0 auto;
+}

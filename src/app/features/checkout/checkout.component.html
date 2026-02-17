@@ -1,0 +1,64 @@
+<section class="pt-20 pb-10 bg-gray-50">
+  <div class="container xl:w-[50%] p-5 border-gray-200 bg-gray-200 shadow-xs rounded md:w-1/2">
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">
+        CheckOut Session
+      </h2>
+
+
+      <form [formGroup]="checkOutForm" (ngSubmit)="onSubmitCheckOutForm()">
+      <div formGroupName="shippingAddress">
+        <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          formControlName="details"
+          name="floating_details"
+          id="floating_details"
+          class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+          placeholder=" "
+          required
+        />
+        <label
+          for="floating_details"
+          class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >Details of order</label
+        >
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="tel"
+          formControlName="phone"
+          name="floating_phone"
+          id="floating_phone"
+          class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+          placeholder=" "
+          required
+        />
+        <label
+          for="floating_phone"
+          class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >Phone</label
+        >
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          formControlName="city"
+          name="floating_city"
+          id="floating_city"
+          class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+          placeholder=" "
+          required
+        />
+        <label
+          for="floating_city"
+          class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >City</label
+        >
+      </div>
+      </div>
+      <div class="button">
+        <button type="submit" class="btn-main w-full mt-5">Payment With Visa</button>
+      </div>
+    </form>
+  </div>
+</section>

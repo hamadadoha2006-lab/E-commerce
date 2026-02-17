@@ -1,0 +1,243 @@
+<section class="pt-20 pb-5 my-16">
+  <div class="container xl:w-[50%] p-5 border-gray-200 bg-gray-200 shadow-xs rounded md:w-1/2">
+    
+    @if (!showForgotPassword()) {
+      <!-- Login Form -->
+      <div class="title">
+        <h2 class="text-green-600 mb-3 font-medium text-3xl text-center">Login Now</h2>
+      </div>
+
+      @if (successMassege()) {
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+          {{ successMassege() }}
+        </div>
+      }
+
+      @if (errorMassege()) {
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {{ errorMassege() }}
+        </div>
+      }
+
+      <form class="input" [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            formControlName="email"
+            type="email"
+            name="floating_email"
+            id="floating_email"
+            class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="floating_email"
+            class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+            >Email address</label
+          >
+        </div>
+        @let emailVariable= loginForm.get("email"); @if ( emailVariable?.errors &&
+        emailVariable?.touched) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="list-disc list-outside space-y-1 ps-2.5">
+              @if (emailVariable?.getError("required")) {
+              <li>Email Input is required</li>
+              } @if (emailVariable?.getError("email")) {
+              <li>Please enter valid email addresse</li>
+              }
+            </ul>
+          </div>
+        </div>
+        }
+        <div class="relative z-0 w-full mb-5 group">
+          <input
+            formControlName="password"
+            type="password"
+            name="floating_password"
+            id="floating_password"
+            class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="floating_password"
+            class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+            >Password</label
+          >
+        </div>
+        @let passwordVariable = loginForm.get("password"); @if ( passwordVariable?.errors &&
+        passwordVariable?.touched) {
+        <div
+          class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+          role="alert"
+        >
+          <span class="sr-only">Danger</span>
+          <div>
+            <ul class="list-disc list-outside space-y-1 ps-2.5">
+              @if (passwordVariable?.getError("required")) {
+              <li>password Input is required</li>
+              } @if (passwordVariable?.getError("pattern")) {
+              <li>
+                Please Enter Minimum eight characters, at least one uppercase letter, one lowercase
+                letter and one number:
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+        }
+
+        <div class="button">
+          <button type="submit" class="btn-main w-full mt-5" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <i class="fas fa-spinner fa-spin"></i> Loading...
+            } @else {
+              Login
+            }
+          </button>
+          
+          <div class="text-center mt-3">
+            <button 
+              type="button"
+              (click)="toggleForgotPassword()"
+              class="text-green-600 text-sm  hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
+          <p class="text-center mt-4 text-sm text-body">
+            Don't have an account?
+            <a routerLink="/register" class="text-green-600 font-medium hover:underline">Sign up</a>
+          </p>
+        </div>
+      </form>
+    } @else {
+      <!-- Forgot Password Flow -->
+      <div class="title mb-4">
+        <button 
+          (click)="toggleForgotPassword()"
+          class="text-green-600 hover:underline mb-2 flex items-center gap-2"
+        >
+          <i class="fas fa-arrow-left"></i> Back to Login
+        </button>
+        <h2 class="text-green-600 mb-3 font-medium text-3xl text-center">Reset Password</h2>
+      </div>
+
+      @if (successMassege()) {
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+          {{ successMassege() }}
+        </div>
+      }
+
+      @if (errorMassege()) {
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {{ errorMassege() }}
+        </div>
+      }
+
+      <!-- Step 1: Enter Email -->
+      @if (forgotPasswordStep() === 1) {
+        <form [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassword()">
+          <p class="text-gray-600 mb-4 text-center">Enter your email to receive a reset code</p>
+          
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="email"
+              type="email"
+              class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Email address</label>
+          </div>
+
+          <button type="submit" class="btn-main w-full" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <i class="fas fa-spinner fa-spin"></i> Sending...
+            } @else {
+              Send Reset Code
+            }
+          </button>
+        </form>
+      }
+
+      <!-- Step 2: Verify Code -->
+      @if (forgotPasswordStep() === 2) {
+        <form [formGroup]="verifyCodeForm" (ngSubmit)="submitVerifyCode()">
+          <p class="text-gray-600 mb-4 text-center">Enter the code sent to your email</p>
+          
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="resetCode"
+              type="text"
+              class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Reset Code</label>
+          </div>
+
+          <button type="submit" class="btn-main w-full" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <i class="fas fa-spinner fa-spin"></i> Verifying...
+            } @else {
+              Verify Code
+            }
+          </button>
+        </form>
+      }
+
+      <!-- Step 3: Reset Password -->
+      @if (forgotPasswordStep() === 3) {
+        <form [formGroup]="resetPasswordForm" (ngSubmit)="submitResetPassword()">
+          <p class="text-gray-600 mb-4 text-center">Enter your new password</p>
+          
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="email"
+              type="email"
+              class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+              required
+              readonly
+            />
+            <label
+              class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Email address</label>
+          </div>
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="newPassword"
+              type="password"
+              class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-green-600/50 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >New Password</label>
+          </div>
+
+          <button type="submit" class="btn-main w-full" [disabled]="isLoading()">
+            @if (isLoading()) {
+              <i class="fas fa-spinner fa-spin"></i> Resetting...
+            } @else {
+              Reset Password
+            }
+          </button>
+        </form>
+      }
+    }
+  </div>
+</section>

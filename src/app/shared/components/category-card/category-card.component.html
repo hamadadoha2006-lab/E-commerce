@@ -1,0 +1,10 @@
+<div class="card relative group/card" [routerLink]="['/categories-details', info._id]">
+  <div>
+    <img [src]="info.image" [alt]="info.name" class="w-full h-72 group-hover/card:scale-110 transition-[scale] duration-500" />
+    <div
+      class="layer bg-gray-50/40 cursor-pointer absolute top-0 start-0 left-0 h-full w-full p-3 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 flex justify-center align-middle"
+    >
+      <h1 class="text-green-600 text-2xl font-bold translate-y-[30%]">{{ info.name }}</h1>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<section class="pt-20 pb-10 bg-gray-50 min-h-screen">
+  <div class="container xl:w-[95%] mx-auto px-4">
+    <h2 class="text-2xl font-bold text-gray-800 text-center my-6">
+      <span class="text-green-600">Popular</span> Products
+    </h2>
+    
+    <!-- Search Section -->
+    <div class="max-w-3xl mx-auto mb-8">
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="relative">
+            <input
+              type="search"
+              name="floating_search_category"
+              id="floating_search_category"
+              class="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              [(ngModel)]="categoryText"
+              placeholder="Search by category..."
+            />
+            <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
+          </div>
+          <div class="relative">
+            <input
+              type="search"
+              name="floating_search"
+              id="floating_search"
+              class="block w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              [(ngModel)]="text"
+              placeholder="Search by product name..."
+            />
+            <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        @for (product of productList() | search: text : categoryText | paginate: pagination  ; track product.id) {
+            <app-card [item]="product"></app-card>
+        }
+    </div>
+    
+    <!-- Pagination -->
+    <div class="flex justify-center my-8">
+      <pagination-controls id="products" (pageChange)="pageChanged($event)">
+      </pagination-controls>
+    </div>
+  </div>
+</section>

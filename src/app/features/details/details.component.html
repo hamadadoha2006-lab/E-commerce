@@ -1,0 +1,106 @@
+<section class="pt-20 pb-5 bg-gray-50">
+  <div class="container xl:w-[80%] mx-auto px-4 my-16">
+    <h2 class="text-2xl font-bold text-green-600 uppercase text-center my-6">details of product</h2>
+    @if (productDetailsData().id) {
+      <div class="bg-white rounded-lg shadow-md overflow-hidden my-12">
+        <div class="grid md:grid-cols-2 gap-4 p-16">
+          <!-- Product Image -->
+          <div class="flex items-center justify-center">
+            <img
+              [src]="productDetailsData().imageCover"
+              [alt]="productDetailsData().title"
+              class="w-full max-h-[400px] object-contain rounded-lg"
+              [title]="productDetailsData().title"
+            />
+          </div>
+
+          <!-- Product Details -->
+          <div class="flex flex-col justify-center space-y-2">
+            <!-- Category Badge -->
+            <div class="flex items-center gap-2">
+              <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+                {{ productDetailsData().category.name }}
+              </span>
+              @if (productDetailsData().brand) {
+                <span class="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+                  {{ productDetailsData().brand.name }}
+                </span>
+              }
+            </div>
+
+            <!-- Product Title -->
+            <h1 class="text-xl font-bold text-gray-800 line-clamp-2">
+              {{ productDetailsData().title }}
+            </h1>
+
+            <!-- Rating & Price -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-gray-600 font-semibold text-sm">
+                  {{ productDetailsData().ratingsAverage }}
+                </span>
+                <span class="text-gray-400 text-xs">
+                  ({{ productDetailsData().ratingsQuantity }})
+                </span>
+              </div>
+              <span class="text-2xl font-bold text-green-600">
+                {{ productDetailsData().price | currency:'GBP' }}
+              </span>
+            </div>
+
+            <!-- Description -->
+            <p class="text-gray-600 text-xs leading-relaxed line-clamp-3">
+              {{ productDetailsData().description }}
+            </p>
+
+            <!-- Stock Status -->
+            @if (productDetailsData().quantity > 0) {
+              <span class="flex items-center gap-1 text-green-600 font-semibold text-xs">
+                <i class="fas fa-check-circle"></i>
+                In Stock ({{ productDetailsData().quantity }})
+              </span>
+            } @else {
+              <span class="flex items-center gap-1 text-red-600 font-semibold text-xs">
+                <i class="fas fa-times-circle"></i>
+                Out of Stock
+              </span>
+            }
+
+            <!-- Add to Cart Button -->
+            <button 
+              (click)="addToCart()"
+              class="w-full bg-green-600 text-white py-2.5 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200 flex items-center justify-center gap-2 text-sm"
+              [disabled]="productDetailsData().quantity === 0"
+              [class.opacity-50]="productDetailsData().quantity === 0"
+              [class.cursor-not-allowed]="productDetailsData().quantity === 0"
+            >
+              <i class="fas fa-shopping-cart text-xs"></i>
+              Add To Cart
+            </button>
+
+            <!-- Additional Info -->
+            <div class="grid grid-cols-4 gap-2 pt-2 border-t">
+              <div class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-truck text-green-600 text-xs mb-1"></i>
+                <span class="text-[10px]">Free Ship</span>
+              </div>
+              <div class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-shield-alt text-green-600 text-xs mb-1"></i>
+                <span class="text-[10px]">Secure</span>
+              </div>
+              <div class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-undo text-green-600 text-xs mb-1"></i>
+                <span class="text-[10px]">Returns</span>
+              </div>
+              <div class="flex flex-col items-center text-gray-600">
+                <i class="fas fa-headset text-green-600 text-xs mb-1"></i>
+                <span class="text-[10px]">Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

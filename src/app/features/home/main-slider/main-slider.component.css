@@ -1,0 +1,92 @@
+/* Responsive Navigation Arrows */
+::ng-deep .owl-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+::ng-deep .owl-nav button {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 50px !important;
+  height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  transition: all 0.3s ease !important;
+  pointer-events: all;
+}
+
+::ng-deep .owl-nav button:hover {
+  background: rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Hide navigation on mobile */
+@media (max-width: 600px) {
+  ::ng-deep .owl-nav {
+    display: none !important;
+  }
+}
+
+/* Responsive Dots */
+::ng-deep .owl-dots {
+  text-align: center !important;
+  margin-top: 20px !important;
+}
+
+::ng-deep .owl-dot {
+  display: inline-block !important;
+  margin: 0 5px !important;
+}
+
+::ng-deep .owl-dot span {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50% !important;
+  display: block !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .owl-dot.active span {
+  background: #16a34a !important;
+  transform: scale(1.2) !important;
+}
+
+/* Mobile responsive dots */
+@media (max-width: 600px) {
+  ::ng-deep .owl-dots {
+    margin-top: 15px !important;
+  }
+  
+  ::ng-deep .owl-dot span {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+/* Carousel container responsive */
+::ng-deep .owl-carousel {
+  position: relative;
+}
+
+::ng-deep .owl-stage-outer {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Image responsive behavior */
+::ng-deep .owl-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

@@ -1,0 +1,148 @@
+/* Categories Slider Responsive Styles */
+
+/* Navigation Arrows */
+::ng-deep .owl-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 -15px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+::ng-deep .owl-nav button {
+  background: rgba(22, 163, 74, 0.8) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 45px !important;
+  height: 45px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  pointer-events: all;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .owl-nav button:hover {
+  background: rgba(22, 163, 74, 1) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Hide navigation on mobile and small tablets */
+@media (max-width: 768px) {
+  ::ng-deep .owl-nav {
+    display: none !important;
+  }
+}
+
+/* Responsive Dots */
+::ng-deep .owl-dots {
+  text-align: center !important;
+  margin-top: 25px !important;
+  padding: 0 20px !important;
+}
+
+::ng-deep .owl-dot {
+  display: inline-block !important;
+  margin: 0 6px !important;
+}
+
+::ng-deep .owl-dot span {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(22, 163, 74, 0.3) !important;
+  border-radius: 50% !important;
+  display: block !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .owl-dot.active span {
+  background: #16a34a !important;
+  transform: scale(1.3) !important;
+}
+
+::ng-deep .owl-dot:hover span {
+  background: rgba(22, 163, 74, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Mobile responsive dots */
+@media (max-width: 480px) {
+  ::ng-deep .owl-dots {
+    margin-top: 20px !important;
+    padding: 0 10px !important;
+  }
+  
+  ::ng-deep .owl-dot {
+    margin: 0 4px !important;
+  }
+  
+  ::ng-deep .owl-dot span {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+/* Carousel container */
+::ng-deep .owl-carousel {
+  position: relative;
+}
+
+::ng-deep .owl-stage-outer {
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+/* Category Card Styles */
+.category-card {
+  padding: 0 8px;
+}
+
+.category-card .aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .category-card {
+    padding: 0 5px;
+  }
+  
+  .category-card .p-3 {
+    padding: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .category-card {
+    padding: 0 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-card {
+    padding: 0 12px;
+  }
+}
+
+/* Hover effects */
+.category-card:hover .shadow-sm {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Loading state */
+.category-card img {
+  background-color: #f3f4f6;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
+}

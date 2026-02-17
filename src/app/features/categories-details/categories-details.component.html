@@ -1,0 +1,10 @@
+<section class="pt-20 pb-5">
+  <div class="container xl:w-[95%] ks">
+    <h2 class="text-xl font-bold text-green-600 uppercase text-center my-6">categories-Products</h2>
+    <div class="products mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      @for (category of categoryDetailsData(); track category.id) {
+          <app-card [item]="category"></app-card>
+      }
+  </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<section class="pt-20 pb-10 bg-gray-50 min-h-screen">
+    <div class="container xl:w-[95%] mx-auto px-4">
+        <h2 class="text-2xl font-bold text-gray-800 text-center my-6">
+          <span class="text-green-600">Popular</span> Brands
+        </h2>
+        <div class="products grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            @for (brand of brandList(); track brand._id) {
+                <div class="card group/card relative cursor-pointer bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden" [routerLink]="['/brand-products', brand._id]">
+                    <div>
+                      <img
+                        [src]="brand.image"
+                        [alt]="brand.name"
+                        class="w-100 group-hover/card:scale-110 transition-[scale] duration-500"
+                        [title]="brand.name"
+                      />
+                    </div>
+                  </div>
+            }
+        </div>
+    </div>
+</section>

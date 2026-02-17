@@ -1,0 +1,191 @@
+<app-navbar></app-navbar>
+
+<section class="pt-20 pb-10 bg-gray-50 min-h-screen">
+  <div class="container xl:w-[90%] mx-auto px-4">
+    
+    <!-- Success Message -->
+    <div class="text-center py-8 mb-8 bg-white rounded-lg shadow-sm">
+      <div class="mb-4">
+        <i class="fas fa-check-circle text-green-500 text-6xl"></i>
+      </div>
+      <h2 class="text-3xl font-bold text-gray-800 mb-2">Payment Successful!</h2>
+      <p class="text-gray-600">Thank you for your order. Your payment has been processed successfully.</p>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="text-center py-20">
+        <i class="fas fa-spinner fa-spin text-green-600 text-5xl"></i>
+        <p class="text-gray-600 mt-4">Loading your orders...</p>
+      </div>
+    }
+
+    <!-- Error Message -->
+    @if (errorMessage()) {
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+        <p class="font-bold">Error:</p>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+
+    <!-- Orders List -->
+    @if (!isLoading() && orders().length > 0) {
+      <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-6">Your Orders</h3>
+        
+        @for (order of orders(); track order._id) {
+          <div class="bg-white rounded-lg shadow-sm mb-6 overflow-hidden">
+            <!-- Order Header -->
+            <div class="bg-gray-100 px-6 py-4 border-b">
+              <div class="flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <p class="text-sm text-gray-600">Order ID</p>
+                  <p class="font-semibold text-gray-800">#{{ order.id }}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">Order Date</p>
+                  <p class="font-semibold text-gray-800">{{ order.createdAt | date: 'medium' }}</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600">Total Amount</p>
+                  <p class="font-semibold text-green-600 text-xl">{{ order.totalOrderPrice }} EGP</p>
+                </div>
+                <div>
+                  <span 
+                    [class]="order.isPaid ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
+                    class="px-3 py-1 rounded-full text-sm font-semibold"
+                  >
+                    {{ order.isPaid ? 'Paid' : 'Pending' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="p-6">
+              <!-- Shipping Address -->
+              <div class="mb-6 pb-6 border-b">
+                <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <i class="fas fa-map-marker-alt text-green-600"></i>
+                  Shipping Address
+                </h4>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <p class="text-gray-700"><span class="font-semibold">City:</span> {{ order.shippingAddress.city }}</p>
+                  <p class="text-gray-700"><span class="font-semibold">Phone:</span> {{ order.shippingAddress.phone }}</p>
+                  <p class="text-gray-700"><span class="font-semibold">Details:</span> {{ order.shippingAddress.details }}</p>
+                </div>
+              </div>
+
+              <!-- Order Items -->
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                  <i class="fas fa-shopping-bag text-green-600"></i>
+                  Order Items
+                </h4>
+                <div class="space-y-4">
+                  @for (item of order.cartItems; track item._id) {
+                    <div class="flex gap-4 bg-gray-50 p-4 rounded-lg">
+                      <img 
+                        [src]="item.product.imageCover" 
+                        [alt]="item.product.title"
+                        class="w-20 h-20 object-cover rounded-lg"
+                      />
+                      <div class="flex-1">
+                        <h5 class="font-semibold text-gray-800 mb-1">{{ item.product.title }}</h5>
+                        <p class="text-sm text-gray-600 mb-2">
+                          <span class="font-semibold">Brand:</span> {{ item.product.brand.name }} | 
+                          <span class="font-semibold">Category:</span> {{ item.product.category.name }}
+                        </p>
+                        <div class="flex items-center gap-4">
+                          <p class="text-gray-700">
+                            <span class="font-semibold">Quantity:</span> {{ item.count }}
+                          </p>
+                          <p class="text-green-600 font-semibold">{{ item.price }} EGP</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Order Summary -->
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-800 mb-3">Order Summary</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-gray-700">
+                    <span>Subtotal:</span>
+                    <span>{{ order.totalOrderPrice - order.taxPrice - order.shippingPrice }} EGP</span>
+                  </div>
+                  <div class="flex justify-between text-gray-700">
+                    <span>Tax:</span>
+                    <span>{{ order.taxPrice }} EGP</span>
+                  </div>
+                  <div class="flex justify-between text-gray-700">
+                    <span>Shipping:</span>
+                    <span>{{ order.shippingPrice }} EGP</span>
+                  </div>
+                  <div class="flex justify-between text-lg font-bold text-gray-800 pt-2 border-t">
+                    <span>Total:</span>
+                    <span class="text-green-600">{{ order.totalOrderPrice }} EGP</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Payment & Delivery Status -->
+              <div class="mt-4 flex gap-4">
+                <div class="flex items-center gap-2">
+                  <i [class]="order.isPaid ? 'fas fa-check-circle text-green-500' : 'fas fa-clock text-yellow-500'"></i>
+                  <span class="text-sm text-gray-700">
+                    {{ order.isPaid ? 'Payment Completed' : 'Payment Pending' }}
+                  </span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i [class]="order.isDelivered ? 'fas fa-check-circle text-green-500' : 'fas fa-truck text-blue-500'"></i>
+                  <span class="text-sm text-gray-700">
+                    {{ order.isDelivered ? 'Delivered' : 'In Transit' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- No Orders -->
+    @if (!isLoading() && orders().length === 0) {
+      <div class="text-center py-20 bg-white rounded-lg shadow-sm">
+        <i class="fas fa-shopping-bag text-gray-300 text-6xl mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">No Orders Yet</h3>
+        <p class="text-gray-600 mb-6">You haven't placed any orders yet.</p>
+        <a 
+          routerLink="/products" 
+          class="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200"
+        >
+          <i class="fas fa-shopping-bag"></i>
+          Start Shopping
+        </a>
+      </div>
+    }
+
+    <!-- Action Buttons -->
+    @if (!isLoading() && orders().length > 0) {
+      <div class="flex gap-4 justify-center mt-8">
+        <a 
+          routerLink="/products" 
+          class="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200"
+        >
+          <i class="fas fa-shopping-bag"></i>
+          Continue Shopping
+        </a>
+        <a 
+          routerLink="/home" 
+          class="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors duration-200"
+        >
+          <i class="fas fa-home"></i>
+          Go to Home
+        </a>
+      </div>
+    }
+  </div>
+</section>

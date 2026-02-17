@@ -1,0 +1,13 @@
+<section class="pt-20 pb-5">
+  <div class="container xl:w-[95%]">
+    <h2 class="text-xl font-bold text-green-600 uppercase text-center my-6">Brand Products</h2>
+    <div class="products mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      @for (product of productList(); track product.id) {
+        <app-card [item]="product"></app-card>
+      }
+      @empty {
+        <p class="text-center col-span-full text-gray-500">No products found for this brand</p>
+      }
+    </div>
+  </div>
+</section>

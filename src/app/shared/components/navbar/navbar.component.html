@@ -1,0 +1,76 @@
+
+<nav class="bg-white fixed w-full z-20 top-0 start-0 shadow-md">
+  <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-6 py-3">
+    <a routerLink="/home" class="flex items-center space-x-2">
+        <img src="/assets/images/freshcart-logo.svg" class="h-8" alt="store Logo" />
+    </a>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/></svg>
+    </button>
+    <div class="hidden w-full md:flex md:w-auto md:grow" id="navbar-default">
+      @if(isLogin===true){
+        <ul class="ms-5 font-medium flex items-center gap-1 p-0">
+        <li>
+          <a routerLink="/home" routerLinkActive="bg-green-600 text-white" class="block py-2 px-4 text-gray-700 rounded-lg hover:bg-green-50 transition-colors duration-200">Home</a>
+        </li>
+        <li>
+          <a routerLink="/products" routerLinkActive="bg-green-600 text-white" class="block py-2 px-4 text-gray-700 rounded-lg hover:bg-green-50 transition-colors duration-200">Products</a>
+        </li>
+        <li>
+          <a routerLink="/category" routerLinkActive="bg-green-600 text-white" class="block py-2 px-4 text-gray-700 rounded-lg hover:bg-green-50 transition-colors duration-200">Categories</a>
+        </li>
+        <li>
+          <a routerLink="/brands" routerLinkActive="bg-green-600 text-white" class="block py-2 px-4 text-gray-700 rounded-lg hover:bg-green-50 transition-colors duration-200">Brands</a>
+        </li>
+      </ul>
+      }
+      <ul class="font-medium flex items-center gap-2 ms-auto">
+        @if(isLogin===true){
+        <li>
+          <a routerLink="/wishlist" routerLinkActive="text-red-600" class="block p-2 text-gray-600 hover:text-red-600 transition-colors duration-200 relative">
+            <i class="fas fa-heart text-lg"></i>
+            @if(wishlistService.wishlistIds().length > 0) {
+              <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {{ wishlistService.wishlistIds().length }}
+              </span>
+            }
+          </a>
+        </li>
+        <li>
+          <a routerLink="/cart" routerLinkActive="text-green-600" class="block p-2 text-gray-600 hover:text-green-600 transition-colors duration-200 relative">
+            <i class="fas fa-shopping-cart text-lg"></i>
+            @if(cartService.cartItemsCount() > 0) {
+              <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {{ cartService.cartItemsCount() }}
+              </span>
+            }
+          </a>
+        </li>
+        }
+        <li>
+          <a href="#" class="block p-2 text-gray-600 hover:text-[#E1306C] transition-colors duration-200"><i class="fa-brands fa-instagram"></i></a>
+        </li>    
+        <li>
+          <a href="#" class="block p-2 text-gray-600 hover:text-[#1877F2] transition-colors duration-200"><i class="fa-brands fa-facebook"></i></a>
+        </li>
+        <li>
+          <a href="#" class="block p-2 text-gray-600 hover:text-[#EE1D52] transition-colors duration-200"><i class="fa-brands fa-tiktok"></i></a>
+        </li>
+        <li>
+          <a href="#" class="block p-2 text-gray-600 hover:text-[#1DA1F2] transition-colors duration-200"><i class="fa-brands fa-twitter"></i></a>
+        </li>
+        <li class="border-l border-gray-300 ml-2 pl-2">
+        @if(isLogin===false)
+        {
+          <a routerLink="/login" class="inline-block py-2 px-4 text-sm text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-200 mr-2">Login</a>
+          <a routerLink="/register" class="inline-block py-2 px-4 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors duration-200">Register</a>
+        }
+        @else{
+          <a (click)="signOut()" class="inline-block py-2 px-4 text-sm text-red-600 border border-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors duration-200 cursor-pointer">Sign Out</a>
+        }
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
