@@ -28,7 +28,9 @@ export class AllordersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.errorMessage.set(err.message || 'Error loading orders');
+        console.log('Orders loading error:', err);
+        // Don't show error, just show empty state
+        this.orders.set([]);
         this.isLoading.set(false);
       }
     });
